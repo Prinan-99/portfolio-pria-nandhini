@@ -32,8 +32,8 @@ export default function SplashOverlay() {
       setShow(false);
       // Unlock scroll immediately when splash fades
       document.body.style.overflow = "unset";
-      // Navigate to About section after splash
-      router.push("/#about");
+      // Navigate to home page after splash
+      router.push("/");
     }, 4000); // 4 seconds
 
     return () => {
