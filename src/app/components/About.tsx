@@ -35,7 +35,7 @@ export default function About() {
     return (
         <section id="about" className="mt-0">
             
-            <CardContainer containerClassName="py-30">
+            <CardContainer containerClassName="py-8 md:py-30">
                 <CardBody className="h-auto w-full">
                     <CardItem translateZ={20} className="w-full">
                         <div className="grid gap-6 md:gap-10 items-start md:[grid-template-columns:1fr_1.5fr]">

@@ -45,7 +45,7 @@ export default function Footer() {
             >
                 {/* Left - Connect */}
                 <div className="flex items-center gap-3">
-                    <span className="text-neutral-400">Connect:</span>
+                    <span className="themed-text opacity-60">Connect:</span>
                     <div className="flex gap-3">
                         {socialLinks.map((social) => (
                             <motion.a
@@ -55,7 +55,7 @@ export default function Footer() {
                                 rel="noopener noreferrer"
                                 whileHover={{ scale: 1.2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="text-neutral-400 hover:text-indigo-400 transition-colors duration-300"
+                                className="themed-text opacity-60 hover:themed-accent transition-colors duration-300"
                                 title={social.name}
                             >
                                 {social.icon}
@@ -65,13 +65,13 @@ export default function Footer() {
                 </div>
 
                 {/* Center - Title */}
-                <div className="text-neutral-400 text-center">
-                    Designed and Built by <span className="text-white font-semibold">Pria Nandhini</span>
+                <div className="themed-text opacity-60 text-center">
+                    Designed and Built by <span className="themed-text font-semibold">Pria Nandhini</span>
                 </div>
 
                 {/* Right - Copyright */}
-                <div className="text-neutral-400">
-                    &copy; {currentYear}
+                <div className="themed-text opacity-60">
+                    &copy; {currentYear} All Rights Reserved.
                 </div>
             </motion.div>
         </footer>

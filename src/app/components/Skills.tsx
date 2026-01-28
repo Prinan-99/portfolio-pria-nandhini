@@ -48,7 +48,7 @@ export default function Skills({ sections = defaultSections }: { sections?: Sect
     }, []);
 
     return (
-        <section id="skills" className="mx-auto w-full py-16 sm:py-24">
+        <section id="skills" className="mx-auto w-full py-20 sm:py-24">
             <div className="text-center mb-10 sm:mb-14">
                 <p className="uppercase tracking-[0.3em] text-xs sm:text-sm text-indigo-300/80">Capabilities</p>
                 <h2 className="mt-3 font-extrabold">
