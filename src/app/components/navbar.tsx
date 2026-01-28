@@ -27,19 +27,15 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Theme handling: default light-blue professional, dark as alternative
+  // Theme handling: force dark theme as default
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const initial = stored === "dark" ? "dark" : "light";
+    // Always force dark theme
+    const theme = "dark";
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(initial);
-    if (initial === "dark") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.classList.add("light");
-    }
+    setTheme(theme);
+    localStorage.setItem("theme", "dark");
+    document.documentElement.classList.add("dark");
+    document.documentElement.classList.remove("light");
   }, []);
 
   const navItems = [
