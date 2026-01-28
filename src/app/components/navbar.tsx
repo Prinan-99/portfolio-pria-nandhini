@@ -50,6 +50,22 @@ export function Navbar() {
     { label: "Contact", href: "#contact", id: "contact" },
   ];
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Apply navbar offset only for "about" section, no offset for others
+      const navbarHeight = targetId === "about" ? 60 : 0;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   const isActive = (id: string) => activeSection === id;
   const isDark = theme === "dark";
 
@@ -64,9 +80,9 @@ export function Navbar() {
           }`}
         >
           {/* Logo */}
-          <Link href="#" className="shrink-0 -ml-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300 ${isDark ? "bg-white" : "bg-blue-500"}`}>
-              <span className={`font-bold text-lg ${isDark ? "text-black" : "text-white"}`}>PN</span>
+          <Link href="#about" onClick={(e) => handleNavClick(e, "about")} className="shrink-0 -ml-4">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ease-out ${isDark ? "bg-white" : "bg-blue-500"}`}>
+              <span className={`font-bold text-lg transition-colors duration-500 ${isDark ? "text-black" : "text-white"}`}>PN</span>
             </div>
           </Link>
 
@@ -76,14 +92,15 @@ export function Navbar() {
               <Link
                 key={item.id}
                 href={item.href}
-                className={`text-sm font-medium transition-all duration-300 px-4 py-2 rounded-full ${
+                onClick={(e) => handleNavClick(e, item.id)}
+                className={`text-sm font-medium transition-all duration-500 ease-out px-4 py-2 rounded-full ${
                   isActive(item.id)
                     ? isDark
                       ? "text-black bg-white shadow-[0_0_20px_rgba(255,255,255,0.7)]"
                       : "text-white bg-blue-500 shadow-[0_0_20px_rgba(74,144,226,0.6)]"
                     : isDark
-                      ? "text-white hover:opacity-80"
-                      : "text-gray-700 hover:opacity-70"
+                      ? "text-white hover:opacity-80 hover:scale-105"
+                      : "text-gray-700 hover:opacity-70 hover:scale-105"
                 }`}
               >
                 {item.label}
