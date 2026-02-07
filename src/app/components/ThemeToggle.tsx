@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-export function ThemeToggle() {
+export function ThemeToggle({ variant = "fixed" }: { variant?: "fixed" | "inline" }) {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [isPixelating, setIsPixelating] = useState(false);
 
@@ -36,6 +36,36 @@ export function ThemeToggle() {
 
   const isDark = theme === "dark";
 
+  if (variant === "inline") {
+    // Inline version for mobile menu
+    return (
+      <button
+        type="button"
+        onClick={toggleTheme}
+        aria-label="Toggle theme"
+        className="flex items-center justify-center gap-3 w-full px-4 py-3 rounded-lg font-medium transition-all duration-300 text-white hover:bg-white/10"
+      >
+        {isDark ? (
+          <>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364 6.364-1.414-1.414M7.05 7.05 5.636 5.636m12.728 0-1.414 1.414M7.05 16.95l-1.414 1.414" />
+            </svg>
+            <span>Light Mode</span>
+          </>
+        ) : (
+          <>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+            </svg>
+            <span>Dark Mode</span>
+          </>
+        )}
+      </button>
+    );
+  }
+
+  // Fixed version for desktop
   return (
     <>
       {isPixelating && <div className="pixelate-overlay" aria-hidden="true" />}

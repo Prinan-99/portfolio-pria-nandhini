@@ -210,7 +210,6 @@ export default function Project() {
                             className="inline-flex items-center justify-center px-4 py-2 rounded-lg font-semibold transition-colors bg-red-600 hover:bg-red-700 border border-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-600"
                         >
                             Deployed Streamlit App
-                            {/*<img src="/Images/pria-linkedin.jpg" alt="LinkedIn" className="h-6 w-6 rounded" />*/}
                         </LinkPreview>
                     </div>
                     <div className="flex flex-wrap gap-3">
