@@ -10,7 +10,8 @@ interface Project {
     title: string;
     subtitle: string;
     description: string;
-    image: string;
+    video: string;
+    playbackRate?: number;
     tags: string[];
     links: { label: string; url: string }[];
 }
@@ -35,7 +36,8 @@ export default function Project() {
             title: "Course Completion",
             subtitle: "Predictor",
             description: "Built a student analytics system using Python, Streamlit, and ML models with automated preprocessing and feature engineering. Enabled identification of learning patterns for data-driven decisions.",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop",
+            video: "/Videos/model video.mp4",
+            playbackRate: 2.5,
             tags: ["PREDICTIVE MODELING", "PYTHON", "STREAMLIT", "DATA SCIENCE"],
             links: [
                 { label: "GitHub Repository", url: "https://github.com/Prinan-99/CourseCompletionPredictor" },
@@ -47,10 +49,11 @@ export default function Project() {
             title: "AgroMind RAG",
             subtitle: "AI Agronomist",
             description: "Built an AI-powered agricultural assistant leveraging RAG architecture, combining vector search with large language models to deliver context-aware, hallucination-reduced farming recommendations backed by domain-specific knowledge bases.",
-            image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&auto=format&fit=crop",
+            video: "/Videos/agromiindrag.mp4",
+            playbackRate: 2.5,
             tags: ["RAG ARCHITECTURE", "LLMs", "VECTOR EMBEDDINGS", "NLP"],
             links: [
-                { label: "GitHub Repository", url: "https://github.com/Prinan-99/AgroMind-AIAgronomist" }
+                { label: "GitHub Repository", url: "https://github.com/Prinan-99/AgroMind-AI-Agronomist" }
             ]
         },
         {
@@ -58,7 +61,8 @@ export default function Project() {
             title: "AI-Powered CSV",
             subtitle: "Data Analysis Agent",
             description: "Built a multi-agent AI system that analyzes CSV files, performs preprocessing, and extracts data automatically. Developed an interactive web application for real-time data exploration and automated report generation.",
-            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
+            video: "/Videos/crewai.mp4",
+            playbackRate: 2.5,
             tags: ["CrewAI", "MULTI-AGENT", "DATA ANALYSIS", "WEB APP"],
             links: [
                 { label: "Live Demo", url: "https://atlas-csv-crew-ai-agent.vercel.app/" }
@@ -202,15 +206,24 @@ export default function Project() {
                         <div className="rounded-2xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-950 p-8">
                             {/* Grid Layout */}
                             <div className="grid lg:grid-cols-2 gap-8 items-center">
-                                {/* Image */}
+                                {/* Project video */}
                                 <motion.div 
                                     className="aspect-video w-full rounded-xl overflow-hidden border border-neutral-700"
                                     whileHover={{ scale: 1.02 }}
                                 >
-                                    <img 
-                                        src={project.image} 
-                                        alt={project.title}
+                                    <video
+                                        key={project.video}
+                                        src={project.video}
+                                        aria-label={`${project.title} ${project.subtitle} demo video`}
                                         className="w-full h-full object-cover"
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="metadata"
+                                        onLoadedMetadata={(event) => {
+                                            event.currentTarget.playbackRate = project.playbackRate ?? 1;
+                                        }}
                                     />
                                 </motion.div>
 

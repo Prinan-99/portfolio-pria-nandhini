@@ -7,40 +7,7 @@ import { motion } from "motion/react";
 
 export default function Certifications() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(true);
-    const [isDark, setIsDark] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
-
-    useEffect(() => {
-        const theme = localStorage.getItem("theme") || "dark";
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setIsDark(theme === "dark");
-
-        const handleThemeChange = () => {
-            const newTheme = localStorage.getItem("theme") || "dark";
-            setIsDark(newTheme === "dark");
-        };
-
-        window.addEventListener("storage", handleThemeChange);
-        const observer = new MutationObserver(() => {
-            const newTheme = localStorage.getItem("theme") || "dark";
-            setIsDark(newTheme === "dark");
-        });
-        observer.observe(document.documentElement, { attributes: true });
-        return () => {
-            window.removeEventListener("storage", handleThemeChange);
-            observer.disconnect();
-        };
-    }, []);
-
-    const checkScroll = () => {
-        if (scrollContainerRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-            setCanScrollLeft(scrollLeft > 0);
-            setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-        }
-    };
 
     // Auto-scroll functionality
     useEffect(() => {
@@ -70,22 +37,10 @@ export default function Certifications() {
         const timer = setTimeout(() => {
             if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollLeft = 0; // Ensure we start at the beginning
-                checkScroll();
             }
         }, 100);
         return () => clearTimeout(timer);
     }, []);
-
-    const scroll = (direction: "left" | "right") => {
-        if (scrollContainerRef.current) {
-            const scrollAmount = 400;
-            scrollContainerRef.current.scrollBy({
-                left: direction === "left" ? -scrollAmount : scrollAmount,
-                behavior: "smooth",
-            });
-            setTimeout(checkScroll, 300);
-        }
-    };
 
     const certifications = [
         {
@@ -111,74 +66,20 @@ export default function Certifications() {
     return (
         <div>
             <section id="certifications" className="py-22 sm:py-24">
-                <div className="flex items-center justify-between mb-8">
+                <div className="mb-8">
                     <Header title="Certifications" />
-                    <div className="flex items-center gap-2">
-                        {/* Left Arrow - Show only when can scroll left */}
-                        {canScrollLeft && (
-                            <button
-                                onClick={() => scroll("left")}
-                                className={`flex items-center justify-center bg-transparent border-none p-0 transition-all duration-300 hover:scale-125 ${
-                                    isDark
-                                        ? "text-white hover:shadow-[0_0_15px_rgba(147,197,253,0.8)]"
-                                        : "text-gray-900 hover:shadow-[0_0_15px_rgba(107,114,128,0.6)]"
-                                }`}
-                                aria-label="Previous certification"
-                                title="Previous"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                        )}
-                        
-                        {/* Right Arrow - Show only when can scroll right */}
-                        {canScrollRight && (
-                            <button
-                                onClick={() => scroll("right")}
-                                className={`flex items-center justify-center bg-transparent border-none p-0 transition-all duration-300 hover:scale-125 ${
-                                    isDark
-                                        ? "text-white hover:shadow-[0_0_15px_rgba(147,197,253,0.8)]"
-                                        : "text-gray-900 hover:shadow-[0_0_15px_rgba(107,114,128,0.6)]"
-                                }`}
-                                aria-label="Next certification"
-                                title="Next"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                        )}
-                    </div>
                 </div>
                 
                 <motion.div 
-                    className="flex items-center gap-4 md:gap-6"
+                    className="flex items-center"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    {/* Left Arrow - Desktop Only */}
-                    <button
-                        onClick={() => scroll("left")}
-                        disabled={!canScrollLeft}
-                        className={`hidden md:flex bg-transparent border-none shrink-0 items-center justify-center transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-125 ${
-                            isDark
-                                ? "text-white hover:shadow-[0_0_20px_rgba(147,197,253,0.8)]"
-                                : "text-gray-900 hover:shadow-[0_0_20px_rgba(107,114,128,0.6)]"
-                        }`}
-                        aria-label="Scroll left"
-                    >
-                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-
                     {/* Horizontal Scrollable Container */}
                     <div 
                         ref={scrollContainerRef}
-                        onScroll={checkScroll}
                         onMouseEnter={() => setIsPaused(true)}
                         onMouseLeave={() => setIsPaused(false)}
                         onTouchStart={() => setIsPaused(true)}
@@ -189,22 +90,6 @@ export default function Certifications() {
                             <FocusCards cards={certifications} />
                         </div>
                     </div>
-
-                    {/* Right Arrow - Desktop Only */}
-                    <button
-                        onClick={() => scroll("right")}
-                        disabled={!canScrollRight}
-                        className={`hidden md:flex bg-transparent border-none shrink-0 items-center justify-center transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-125 ${
-                            isDark
-                                ? "text-white hover:shadow-[0_0_20px_rgba(147,197,253,0.8)]"
-                                : "text-gray-900 hover:shadow-[0_0_20px_rgba(107,114,128,0.6)]"
-                        }`}
-                        aria-label="Scroll right"
-                    >
-                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
                 </motion.div>
             </section>
         </div>

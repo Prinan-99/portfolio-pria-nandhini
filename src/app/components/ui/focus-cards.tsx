@@ -3,6 +3,13 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 
+type FocusCard = {
+  title: string;
+  src: string;
+  description?: string;
+  link?: string;
+};
+
 export const Card = React.memo(
   ({
     card,
@@ -10,7 +17,7 @@ export const Card = React.memo(
     hovered,
     setHovered,
   }: {
-    card: any;
+    card: FocusCard;
     index: number;
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
@@ -48,18 +55,11 @@ export const Card = React.memo(
 
 Card.displayName = "Card";
 
-type Card = {
-  title: string;
-  src: string;
-  description?: string;
-  link?: string;
-};
-
-export function FocusCards({ cards }: { cards: Card[] }) {
+export function FocusCards({ cards }: { cards: FocusCard[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="flex gap-8 min-w-max">
+    <div className="flex min-w-full justify-center gap-8">
       {cards.map((card, index) => (
         <Card
           key={card.title}

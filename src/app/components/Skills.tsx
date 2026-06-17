@@ -29,8 +29,62 @@ const defaultSections: Section[] = [
     },
 ];
 
+const skillStyles = [
+    {
+        border: "border-sky-400/45",
+        bg: "bg-sky-500/10",
+        text: "text-sky-700 dark:text-sky-200",
+        glow: "shadow-sky-500/10",
+    },
+    {
+        border: "border-violet-400/45",
+        bg: "bg-violet-500/10",
+        text: "text-violet-700 dark:text-violet-200",
+        glow: "shadow-violet-500/10",
+    },
+    {
+        border: "border-cyan-400/45",
+        bg: "bg-cyan-500/10",
+        text: "text-cyan-700 dark:text-cyan-200",
+        glow: "shadow-cyan-500/10",
+    },
+    {
+        border: "border-emerald-400/45",
+        bg: "bg-emerald-500/10",
+        text: "text-emerald-700 dark:text-emerald-200",
+        glow: "shadow-emerald-500/10",
+    },
+    {
+        border: "border-fuchsia-400/45",
+        bg: "bg-fuchsia-500/10",
+        text: "text-fuchsia-700 dark:text-fuchsia-200",
+        glow: "shadow-fuchsia-500/10",
+    },
+];
+
 export default function Skills({ sections = defaultSections }: { sections?: Section[] }) {
     const [isDark, setIsDark] = useState(true);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.12,
+                delayChildren: 0.1,
+            },
+        },
+    };
+
+    const sectionVariants = {
+        hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
+        visible: {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            transition: { duration: 0.45, ease: "easeOut" },
+        },
+    };
 
     useEffect(() => {
         const theme = localStorage.getItem("theme") || "dark";
@@ -75,141 +129,37 @@ export default function Skills({ sections = defaultSections }: { sections?: Sect
                 </h2>
             </div>
 
-            <motion.div 
-                className="grid gap-6 sm:gap-0 md:grid-cols-2 lg:grid-cols-4 grid-cols-1"
+            <motion.div
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                variants={{
-                    hidden: { opacity: 0 },
-                    visible: {
-                        opacity: 1,
-                        transition: {
-                            staggerChildren: 0.15,
-                            delayChildren: 0.1,
-                        },
-                    },
-                }}
+                variants={containerVariants}
             >
-                {/* First row: Languages and Tools & Databases */}
-                {sections.slice(0, 1).map((s) => (
-                    <motion.div
-                        key={s.title}
-                        variants={{
-                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-                            visible: {
-                                opacity: 1,
-                                y: 0,
-                                filter: "blur(0px)",
-                                transition: { duration: 0.5, ease: "easeOut" },
-                            },
-                        }}
-                        className="space-y-5 px-6"
-                    >
-                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
-                        <ul className="flex flex-wrap gap-2">
-                            {s.items.map((item, i) => (
-                                <motion.li
-                                    key={i}
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    className="rounded-lg border border-indigo-400/50 bg-indigo-950/30 px-3 py-1.5 text-sm font-medium text-indigo-200"
-                                >
-                                    {item}
-                                </motion.li>
-                            ))}
-                        </ul>
-                    </motion.div>
-                ))}
+                {sections.map((section, sectionIndex) => {
+                    const style = skillStyles[sectionIndex % skillStyles.length];
 
-                {/* Tools & Databases next to Languages */}
-                {sections.slice(3, 4).map((s) => (
-                    <motion.div
-                        key={s.title}
-                        variants={{
-                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-                            visible: {
-                                opacity: 1,
-                                y: 0,
-                                filter: "blur(0px)",
-                                transition: { duration: 0.5, ease: "easeOut" },
-                            },
-                        }}
-                        className="space-y-5 px-6"
-                    >
-                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
-                        <ul className="flex flex-wrap gap-2">
-                            {s.items.map((item, i) => (
-                                <motion.li
-                                    key={i}
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    className="rounded-lg border border-purple-400/50 bg-purple-950/30 px-3 py-1.5 text-sm font-medium text-purple-200"
-                                >
-                                    {item}
-                                </motion.li>
-                            ))}
-                        </ul>
-                    </motion.div>
-                ))}
-
-                {/* Rest of sections in next rows */}
-                {sections.slice(1, 3).map((s) => (
-                    <motion.div
-                        key={s.title}
-                        variants={{
-                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-                            visible: {
-                                opacity: 1,
-                                y: 0,
-                                filter: "blur(0px)",
-                                transition: { duration: 0.5, ease: "easeOut" },
-                            },
-                        }}
-                        className="space-y-5 md:col-span-2 lg:col-span-1 px-6"
-                    >
-                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
-                        <ul className="flex flex-wrap gap-2">
-                            {s.items.map((item, i) => (
-                                <motion.li
-                                    key={i}
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    className="rounded-lg border border-cyan-400/50 bg-cyan-950/30 px-3 py-1.5 text-sm font-medium text-cyan-200"
-                                >
-                                    {item}
-                                </motion.li>
-                            ))}
-                        </ul>
-                    </motion.div>
-                ))}
-
-                {/* Data Science section */}
-                {sections.slice(4, 5).map((s) => (
-                    <motion.div
-                        key={s.title}
-                        variants={{
-                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-                            visible: {
-                                opacity: 1,
-                                y: 0,
-                                filter: "blur(0px)",
-                                transition: { duration: 0.5, ease: "easeOut" },
-                            },
-                        }}
-                        className="space-y-5 md:col-span-2 lg:col-span-1 px-6"
-                    >
-                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
-                        <ul className="flex flex-wrap gap-2">
-                            {s.items.map((item, i) => (
-                                <motion.li
-                                    key={i}
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    className="rounded-lg border border-green-400/50 bg-green-950/30 px-3 py-1.5 text-sm font-medium text-green-200"
-                                >
-                                    {item}
-                                </motion.li>
-                            ))}
-                        </ul>
-                    </motion.div>
-                ))}
+                    return (
+                        <motion.div
+                            key={section.title}
+                            variants={sectionVariants}
+                            className={`flex min-h-52 flex-col rounded-lg border ${style.border} bg-[var(--card)] p-5 shadow-lg ${style.glow}`}
+                        >
+                            <h3 className="text-lg font-bold leading-snug text-[var(--fg)]">{section.title}</h3>
+                            <ul className="mt-5 flex flex-wrap content-start gap-2">
+                                {section.items.map((item) => (
+                                    <motion.li
+                                        key={item}
+                                        whileHover={{ scale: 1.04, y: -2 }}
+                                        className={`m-0 rounded-lg border ${style.border} ${style.bg} px-3 py-1.5 text-sm font-medium leading-tight ${style.text}`}
+                                    >
+                                        {item}
+                                    </motion.li>
+                                ))}
+                            </ul>
+                        </motion.div>
+                    );
+                })}
             </motion.div>
         </section>
     );
