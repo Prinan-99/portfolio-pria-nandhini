@@ -34,6 +34,14 @@ export default function Certifications() {
         };
     }, []);
 
+    const checkScroll = () => {
+        if (scrollContainerRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+            setCanScrollLeft(scrollLeft > 0);
+            setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+        }
+    };
+
     // Auto-scroll functionality
     useEffect(() => {
         if (!scrollContainerRef.current || isPaused) return;
@@ -41,7 +49,7 @@ export default function Certifications() {
         const autoScroll = setInterval(() => {
             if (scrollContainerRef.current) {
                 const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-                
+
                 // Check if we've reached the end
                 if (scrollLeft >= scrollWidth - clientWidth - 10) {
                     // Reset to beginning
@@ -68,14 +76,6 @@ export default function Certifications() {
         return () => clearTimeout(timer);
     }, []);
 
-    const checkScroll = () => {
-        if (scrollContainerRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-            setCanScrollLeft(scrollLeft > 0);
-            setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-        }
-    };
-
     const scroll = (direction: "left" | "right") => {
         if (scrollContainerRef.current) {
             const scrollAmount = 400;
@@ -89,34 +89,22 @@ export default function Certifications() {
 
     const certifications = [
         {
-            title: "AWS Academy - ML Foundations Graduate",
+            title: "AWS Academy Graduate – ML Foundations",
             src: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&auto=format&fit=crop",
-            description: "Gained strong fundamentals in ML concepts and AWS-based model building.",
+            description: "ML basics, data preparation, model training on AWS",
             link: "https://drive.google.com/file/d/12AtVA7hyUo6IRbKol13iwc_F9diX-mGX/view?usp=drive_link"
         },
         {
-            title: "AWS Academy - ML For NLP",
+            title: "AWS Academy Graduate – ML for NLP",
             src: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop",
-            description: "Developed NLP expertise using AWS services for text analysis and language processing.",
+            description: "NLP preprocessing, tokenization, embeddings, text classification",
             link: "https://drive.google.com/file/d/1y7tWLrWHev8LqKdH2AB7fs5bqs36x4By/view?usp=sharing"
         },
         {
-            title: "IBM Prompt Engineering",
+            title: "Prompt Engineering IBM Skills Network",
             src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop",
-            description: "Mastered techniques to craft effective prompts for AI systems.",
+            description: "Mastered techniques to craft effective prompts for AI systems. Completed June 2024.",
             link: "https://drive.google.com/file/d/13OC_BZm2k92PFy2NoH6zI2r-zzIo_1WJ/view?usp=sharing"
-        },
-        {
-            title: "Coursera - Tableau Visualizations",
-            src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
-            description: "Created interactive data visualizations and dashboards using Tableau.",
-            link: "https://drive.google.com/file/d/1EivlOyptsktWOeVh8dGm2INNaVfHm5e_/view?usp=sharing"
-        },
-        {
-            title: "DataCamp - Data Science",
-            src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&auto=format&fit=crop",
-            description: "Currently Learning Advanced Data Science Techniques",
-            link: "https://datacamp.com"
         }
     ];
 

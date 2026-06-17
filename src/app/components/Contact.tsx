@@ -48,7 +48,7 @@ export default function Contact(){
                 from_name: formData.name,
                 from_email: formData.email,
                 message: formData.message,
-                to_email: 'priunandhu2705@gmail.com'
+                to_email: 'nandhini272005@gmail.com'
             };
 
             await emailjs.send(
@@ -71,7 +71,7 @@ export default function Contact(){
     };
 
     const handleEmailClick = () => {
-        window.location.href = `mailto:priunandhu2705@gmail.com`;
+        window.location.href = `mailto:nandhini272005@gmail.com`;
     };
 
     const socialIcons = [

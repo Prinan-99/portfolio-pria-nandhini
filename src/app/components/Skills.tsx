@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
 import ShinyText from "./ui/ShinyText";
 import { motion } from "motion/react";
 
@@ -11,14 +10,22 @@ type Section = {
 };
 
 const defaultSections: Section[] = [
-    { title: "Expertise", items: ["Python", "Java", "SQL-PostgreSql", "HTML/CSS"] },
+    { title: "Languages", items: ["Python", "Java", "HTML", "CSS"] },
     {
-        title: "Frameworks",
-        items: ["Scikit-Learn", "Pandas", "Streamlit", "Git"],
+        title: "AI & Machine Learning",
+        items: ["LLMs", "RAG Architecture", "Vector Embeddings", "NLP", "Prompt Engineering", "ML Algorithms"],
     },
     {
-        title: "Analytics",
-        items: ["Tableau", "EDA", "Visualisation", "Data Cleaning"],
+        title: "Frameworks & Libraries",
+        items: ["Langchain", "HuggingFace", "Scikit-learn", "Pandas", "NumPy"],
+    },
+    {
+        title: "Tools & Databases",
+        items: ["PostgreSQL", "Tableau", "ChromaDB", "CrewAI", "n8n", "GitHub"],
+    },
+    {
+        title: "Data Science",
+        items: ["EDA", "Data Preprocessing", "Feature Selection", "Model Tuning", "Data Visualization"],
     },
 ];
 
@@ -69,7 +76,7 @@ export default function Skills({ sections = defaultSections }: { sections?: Sect
             </div>
 
             <motion.div 
-                className="grid gap-6 sm:gap-8 md:grid-cols-3"
+                className="grid gap-6 sm:gap-0 md:grid-cols-2 lg:grid-cols-4 grid-cols-1"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
@@ -84,7 +91,8 @@ export default function Skills({ sections = defaultSections }: { sections?: Sect
                     },
                 }}
             >
-                {sections.map((s) => (
+                {/* First row: Languages and Tools & Databases */}
+                {sections.slice(0, 1).map((s) => (
                     <motion.div
                         key={s.title}
                         variants={{
@@ -93,56 +101,116 @@ export default function Skills({ sections = defaultSections }: { sections?: Sect
                                 opacity: 1,
                                 y: 0,
                                 filter: "blur(0px)",
-                                transition: { type: "spring", stiffness: 80 },
+                                transition: { duration: 0.5, ease: "easeOut" },
                             },
                         }}
+                        className="space-y-5 px-6"
                     >
-                        <SectionCard title={s.title} items={s.items} />
+                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
+                        <ul className="flex flex-wrap gap-2">
+                            {s.items.map((item, i) => (
+                                <motion.li
+                                    key={i}
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    className="rounded-lg border border-indigo-400/50 bg-indigo-950/30 px-3 py-1.5 text-sm font-medium text-indigo-200"
+                                >
+                                    {item}
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                ))}
+
+                {/* Tools & Databases next to Languages */}
+                {sections.slice(3, 4).map((s) => (
+                    <motion.div
+                        key={s.title}
+                        variants={{
+                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                filter: "blur(0px)",
+                                transition: { duration: 0.5, ease: "easeOut" },
+                            },
+                        }}
+                        className="space-y-5 px-6"
+                    >
+                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
+                        <ul className="flex flex-wrap gap-2">
+                            {s.items.map((item, i) => (
+                                <motion.li
+                                    key={i}
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    className="rounded-lg border border-purple-400/50 bg-purple-950/30 px-3 py-1.5 text-sm font-medium text-purple-200"
+                                >
+                                    {item}
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                ))}
+
+                {/* Rest of sections in next rows */}
+                {sections.slice(1, 3).map((s) => (
+                    <motion.div
+                        key={s.title}
+                        variants={{
+                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                filter: "blur(0px)",
+                                transition: { duration: 0.5, ease: "easeOut" },
+                            },
+                        }}
+                        className="space-y-5 md:col-span-2 lg:col-span-1 px-6"
+                    >
+                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
+                        <ul className="flex flex-wrap gap-2">
+                            {s.items.map((item, i) => (
+                                <motion.li
+                                    key={i}
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    className="rounded-lg border border-cyan-400/50 bg-cyan-950/30 px-3 py-1.5 text-sm font-medium text-cyan-200"
+                                >
+                                    {item}
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                ))}
+
+                {/* Data Science section */}
+                {sections.slice(4, 5).map((s) => (
+                    <motion.div
+                        key={s.title}
+                        variants={{
+                            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                filter: "blur(0px)",
+                                transition: { duration: 0.5, ease: "easeOut" },
+                            },
+                        }}
+                        className="space-y-5 md:col-span-2 lg:col-span-1 px-6"
+                    >
+                        <h3 className="text-xl font-bold text-white">{s.title}</h3>
+                        <ul className="flex flex-wrap gap-2">
+                            {s.items.map((item, i) => (
+                                <motion.li
+                                    key={i}
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    className="rounded-lg border border-green-400/50 bg-green-950/30 px-3 py-1.5 text-sm font-medium text-green-200"
+                                >
+                                    {item}
+                                </motion.li>
+                            ))}
+                        </ul>
                     </motion.div>
                 ))}
             </motion.div>
         </section>
-    );
-}
-
-function SectionCard({ title, items, className }: { title: string; items: string[]; className?: string }) {
-    return (
-        <div
-            className={cn(
-                "rounded-3xl border border-neutral-800/80 bg-neutral-900/50 backdrop-blur-sm",
-                "shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)]",
-                "p-6 sm:p-8",
-                className
-            )}
-        >
-            <div className="flex items-center gap-4">
-                <h3 className="uppercase">
-                    <ShinyText
-                        text={title}
-                        speed={2}
-                        color="#93c5fd"
-                        shineColor="#ffffff"
-                        spread={120}
-                        direction="left"
-                        className="tracking-[0.25em] text-xs sm:text-sm text-indigo-300/90"
-                    />
-                </h3>
-                <div className="h-px flex-1 bg-neutral-800" />
-            </div>
-
-            <ul className="mt-6 space-y-5">
-                {items.map((label) => (
-                    <li key={label} className="group flex items-center justify-between hover:bg-indigo-500/10 hover:pl-3 transition-all duration-300 rounded-lg py-2 -ml-2 pl-2">
-                        <span className="text-lg sm:text-xl font-medium text-neutral-300 transition-colors duration-300 group-hover:text-indigo-400 group-hover:font-semibold">
-                            {label}
-                        </span>
-                        <span className="relative">
-                            <span className="absolute inset-0 rounded-full bg-indigo-500 blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-300 scale-150" />
-                            <span className="relative block w-2 h-2 rounded-full bg-indigo-500/20 group-hover:bg-indigo-500 transition-all duration-300 group-hover:scale-150 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.8)]" />
-                        </span>
-                    </li>
-                ))}
-            </ul>
-        </div>
     );
 }

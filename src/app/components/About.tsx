@@ -107,7 +107,7 @@ export default function About() {
                                     className="text-lg md:text-xl lg:text-2xl font-bold"
                                 />
                                 <p className="text-base md:text-lg lg:text-xl themed-text leading-relaxed max-w-4xl">
-                                    I build intelligent, data-driven systems and explore immersive web experiences. Focused on machine learning, scalable software, and modern UI. Open to internships and collaborations.
+                                    I&apos;m passionate about building intelligent AI systems and exploring immersive web experiences. Specializing in LLMs, RAG architecture, and machine learning to solve real-world challenges. Combining data science with modern UI/UX for scalable, impactful solutions.
                                 </p>
                                 <div className="flex flex-wrap gap-3 pt-2">
                                     <LinkPreview
